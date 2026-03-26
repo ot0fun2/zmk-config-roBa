@@ -6,6 +6,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Cache west modules
         uses: actions/cache@v4
         with:
@@ -15,18 +16,22 @@ jobs:
             bootloader
             zmk
           key: ${{ runner.os }}-build-${{ hashFiles('**/west.yml') }}
+
       - name: West Init
-        uses: zmkfirmware/zmk-action-setup@v1
+        uses: zmkfirmware/zephyr-capabilities/actions/setup@main
+
       - name: West Build (roBa_L)
-        uses: zmkfirmware/zmk-action-build@v1
+        uses: zmkfirmware/zephyr-capabilities/actions/build@main
         with:
           board: seeeduino_xiao_ble
           shield: roBa_L
+
       - name: West Build (roBa_R)
-        uses: zmkfirmware/zmk-action-build@v1
+        uses: zmkfirmware/zephyr-capabilities/actions/build@main
         with:
           board: seeeduino_xiao_ble
           shield: roBa_R
+
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
