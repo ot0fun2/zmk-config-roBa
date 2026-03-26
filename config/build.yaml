@@ -1,0 +1,4 @@
+build_config:
+  common:
+    snippets:
+      - studio-rpc-bt
