@@ -8,16 +8,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: West Init
-        uses: zmkfirmware/zmk-actions-setup@v1
+        uses: zmkfirmware/zmk/app/actions/setup@main
 
       - name: West Build (roBa_L)
-        uses: zmkfirmware/zmk-actions-build@v1
+        uses: zmkfirmware/zmk/app/actions/build@main
         with:
           board: seeeduino_xiao_ble
           shield: roBa_L
 
       - name: West Build (roBa_R)
-        uses: zmkfirmware/zmk-actions-build@v1
+        uses: zmkfirmware/zmk/app/actions/build@main
         with:
           board: seeeduino_xiao_ble
           shield: roBa_R
