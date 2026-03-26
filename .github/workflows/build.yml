@@ -7,27 +7,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache west modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            modules
-            zephyr
-            bootloader
-            zmk
-          key: ${{ runner.os }}-build-${{ hashFiles('**/west.yml') }}
-
       - name: West Init
-        uses: zmkfirmware/zephyr-capabilities/actions/setup@main
+        uses: zmkfirmware/zmk-actions-setup@v1
 
       - name: West Build (roBa_L)
-        uses: zmkfirmware/zephyr-capabilities/actions/build@main
+        uses: zmkfirmware/zmk-actions-build@v1
         with:
           board: seeeduino_xiao_ble
           shield: roBa_L
 
       - name: West Build (roBa_R)
-        uses: zmkfirmware/zephyr-capabilities/actions/build@main
+        uses: zmkfirmware/zmk-actions-build@v1
         with:
           board: seeeduino_xiao_ble
           shield: roBa_R
