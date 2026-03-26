@@ -8,34 +8,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      # 1. ZMKの本体（プログラム）をダウンロードして準備する
+
       - name: Initialize West
         run: |
           west init -l config
           west update
           west zephyr-export
-          
-      # 2. 左手（roBa_L）をビルドする
+
       - name: Build roBa Left
         run: |
-          west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=roBa_L -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          
-      # 3. 生成されたファイルをコピーして退避
-      - name: Prepare Left UF2
-        run: cp build/zephyr/zmk.uf2 roba_l.uf2
+          west build -b seeeduino_xiao_ble -- -DSHIELD=roBa_L -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          mv build/zephyr/zmk.uf2 roba_l.uf2
 
-      # 4. 右手（roBa_R）をビルドする（一旦ビルドフォルダを消して綺麗にする）
       - name: Build roBa Right
         run: |
           rm -rf build
-          west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=roBa_R -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          west build -b seeeduino_xiao_ble -- -DSHIELD=roBa_R -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          mv build/zephyr/zmk.uf2 roba_r.uf2
 
-      # 5. 生成されたファイルをコピーして退避
-      - name: Prepare Right UF2
-        run: cp build/zephyr/zmk.uf2 roba_r.uf2
-
-      # 6. 出来上がった2つのファイルをダウンロードできるようにする
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
