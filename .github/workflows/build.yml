@@ -17,14 +17,16 @@ jobs:
 
       - name: Build roBa Left
         run: |
-          west build -b seeeduino_xiao_ble -- -DSHIELD=roBa_L -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          mv build/zephyr/zmk.uf2 roba_l.uf2
+          # -s zmk/app を追加して、ソースコードの場所を正しく指定します
+          west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=roBa_L -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 roba_l.uf2
 
       - name: Build roBa Right
         run: |
           rm -rf build
-          west build -b seeeduino_xiao_ble -- -DSHIELD=roBa_R -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          mv build/zephyr/zmk.uf2 roba_r.uf2
+          # 右手も同様に -s zmk/app を指定します
+          west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=roBa_R -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 roba_r.uf2
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
