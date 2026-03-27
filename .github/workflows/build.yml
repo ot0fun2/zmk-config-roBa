@@ -26,7 +26,7 @@ jobs:
             -- -DSHIELD=roBa \
                -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
                -DZMK_CONFIG_FILE=roBa_L.conf \
-               -DDTC_OVERLAY_FILE=roBa_L.overlay
+               -DDTC_OVERLAY_FILE=$GITHUB_WORKSPACE/config/roBa_L.overlay
 
           cp build/left/zephyr/zmk.uf2 roba_l.uf2
 
@@ -37,7 +37,7 @@ jobs:
             -- -DSHIELD=roBa \
                -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
                -DZMK_CONFIG_FILE=roBa_R.conf \
-               -DDTC_OVERLAY_FILE=roBa_R.overlay
+               -DDTC_OVERLAY_FILE=$GITHUB_WORKSPACE/config/roBa_R.overlay
 
           cp build/right/zephyr/zmk.uf2 roba_r.uf2
 
