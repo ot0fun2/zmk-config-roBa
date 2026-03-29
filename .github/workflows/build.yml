@@ -8,11 +8,10 @@ workflow_dispatch:
 jobs:
 build:
 runs-on: ubuntu-latest
+container:
+image: ghcr.io/zmkfirmware/zmk-build-arm:stable
 
 ```
-container:
-  image: ghcr.io/zmkfirmware/zmk-build-arm:stable
-
 steps:
   - name: Checkout
     uses: actions/checkout@v4
