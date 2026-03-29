@@ -13,35 +13,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install west
-        run: pip3 install west
+      - name: Install dependencies
+        run: |
+          pip3 install west
+          pip3 install -r zmk/scripts/requirements.txt || true
 
-      - name: Init west
+      - name: Initialize west workspace
         run: |
           west init -l config
           west update
 
-      - name: Export Zephyr
-        run: |
-          west zephyr-export
-
-      - name: Build Left
+      - name: Build Left (roBa_L)
         run: |
           west build -s zmk/app -d build/left \
             -b xiao_ble \
             -- \
-            -DSHIELD=roBa \
-            -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-            -DZMK_CONFIG_FILE=roBa_L.conf
+            -DSHIELD=roBa_L \
+            -DZMK_CONFIG=$GITHUB_WORKSPACE/config
 
-      - name: Build Right
+      - name: Build Right (roBa_R)
         run: |
           west build -s zmk/app -d build/right \
             -b xiao_ble \
             -- \
-            -DSHIELD=roBa \
-            -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-            -DZMK_CONFIG_FILE=roBa_R.conf
+            -DSHIELD=roBa_R \
+            -DZMK_CONFIG=$GITHUB_WORKSPACE/config
 
       - name: Rename firmware
         run: |
