@@ -23,7 +23,7 @@ jobs:
         run: |
           west init -l config
           west update
-          source zmk/zephyr/zephyr-env.sh
+          ls -R
 
       - name: Build Left (roBa_L)
         run: |
