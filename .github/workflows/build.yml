@@ -13,19 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y python3-pip python3-setuptools python3-wheel ninja-build cmake git device-tree-compiler
-          pip3 install west
+      - name: Install west
+        run: pip3 install west
 
-      - name: Initialize west workspace
+      - name: Init west
         run: |
           west init -l config
           west update
-          ls -R
 
-      - name: Build Left (roBa_L)
+      - name: Build Left
         run: |
           west build -s zmk/app -d build/left \
             -b seeeduino_xiao_ble \
@@ -34,7 +30,7 @@ jobs:
             -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
             -DZMK_CONFIG_FILE=roBa_L.conf
 
-      - name: Build Right (roBa_R)
+      - name: Build Right
         run: |
           west build -s zmk/app -d build/right \
             -b seeeduino_xiao_ble \
