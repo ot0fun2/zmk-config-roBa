@@ -9,15 +9,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: ghcr.io/zmkfirmware/zmk-build-arm:stable
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install west
+      - name: Install dependencies
         run: |
+          sudo apt update
+          sudo apt install -y python3-pip python3-setuptools python3-wheel ninja-build cmake git device-tree-compiler
           pip3 install west
 
       - name: Initialize west workspace
