@@ -23,7 +23,7 @@ jobs:
         run: |
           west init -l config
           west update
-          export ZEPHYR_BASE=$(pwd)/zephyr
+          west zephyr-export || true
 
       - name: Build Left (roBa_L)
         run: |
