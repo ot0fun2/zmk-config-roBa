@@ -1,15 +1,47 @@
-name: Build Left
-run: |
-    west build -s zmk/app -d build/left \
-      -b xiao_ble \
-      -- -DSHIELD=roBa \
-         -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-         -DZMK_CONFIG_FILE=roBa_L.conf
+name: Build
 
-name: Build Right
-run: |
-    west build -s zmk/app -d build/right \
-      -b xiao_ble \
-      -- -DSHIELD=roBa \
-         -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-         -DZMK_CONFIG_FILE=roBa_R.conf
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize West
+        run: |
+          west init -l config
+          west update
+          west zephyr-export
+
+      - name: Build Left
+        run: |
+          west build -s zmk/app -d build/left \
+            -b xiao_ble \
+            -- -DSHIELD=roBa \
+               -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+               -DZMK_CONFIG_FILE=roBa_L.conf
+
+      - name: Build Right
+        run: |
+          west build -s zmk/app -d build/right \
+            -b xiao_ble \
+            -- -DSHIELD=roBa \
+               -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+               -DZMK_CONFIG_FILE=roBa_R.conf
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            build/left/zephyr/zmk.uf2
+            build/right/zephyr/zmk.uf2
