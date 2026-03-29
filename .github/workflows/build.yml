@@ -1,47 +1,60 @@
-name: Build
+name: Build ZMK (roBa)
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+push:
+pull_request:
+workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+build:
+runs-on: ubuntu-latest
 
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
+```
+container:
+  image: ghcr.io/zmkfirmware/zmk-build-arm:stable
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
 
-      - name: Initialize West
-        run: |
-          west init -l config
-          west update
-          west zephyr-export
+  - name: Install west
+    run: |
+      pip3 install west
 
-      - name: Build Left
-        run: |
-          west build -s zmk/app -d build/left \
-            -b xiao_ble \
-            -- -DSHIELD=roBa \
-               -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-               -DZMK_CONFIG_FILE=roBa_L.conf
+  - name: Initialize west workspace
+    run: |
+      west init -l config
+      west update
+      west zephyr-export
 
-      - name: Build Right
-        run: |
-          west build -s zmk/app -d build/right \
-            -b xiao_ble \
-            -- -DSHIELD=roBa \
-               -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-               -DZMK_CONFIG_FILE=roBa_R.conf
+  - name: Build Left (roBa_L)
+    run: |
+      west build -s zmk/app -d build/left \
+        -b seeeduino_xiao_ble \
+        -- \
+        -DSHIELD=roBa \
+        -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+        -DZMK_CONFIG_FILE=roBa_L.conf
 
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware
-          path: |
-            build/left/zephyr/zmk.uf2
-            build/right/zephyr/zmk.uf2
+  - name: Build Right (roBa_R)
+    run: |
+      west build -s zmk/app -d build/right \
+        -b seeeduino_xiao_ble \
+        -- \
+        -DSHIELD=roBa \
+        -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+        -DZMK_CONFIG_FILE=roBa_R.conf
+
+  - name: Rename firmware
+    run: |
+      cp build/left/zephyr/zmk.uf2 roba_l.uf2
+      cp build/right/zephyr/zmk.uf2 roba_r.uf2
+
+  - name: Upload artifacts
+    uses: actions/upload-artifact@v4
+    with:
+      name: roba-firmware
+      path: |
+        roba_l.uf2
+        roba_r.uf2
+```
