@@ -23,6 +23,10 @@ jobs:
           west init -l config
           west update
 
+      - name: Setup Zephyr environment
+        run: |
+          source zephyr/zephyr-env.sh
+
       - name: Build Left (roBa_L)
         run: |
           west build -s zmk/app -d build/left \
