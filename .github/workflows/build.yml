@@ -21,6 +21,10 @@ jobs:
           west init -l config
           west update
 
+      - name: Export Zephyr
+        run: |
+          west zephyr-export
+
       - name: Build Left
         run: |
           west build -s zmk/app -d build/left \
