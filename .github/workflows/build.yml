@@ -23,9 +23,7 @@ jobs:
         run: |
           west init -l config
           west update
-          west config zephyr.base-prefer env
-          export ZEPHYR_BASE=$(pwd)/zmk/zephyr
-          west list
+          source zmk/zephyr/zephyr-env.sh
 
       - name: Build Left (roBa_L)
         run: |
