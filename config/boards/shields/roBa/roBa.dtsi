@@ -63,11 +63,10 @@
             , <&key_physical_attrs 100 100 325 337 0 0 0>
 
             /* thumb cluster */
-            , <&key_physical_attrs 100 100 437 350 350000 437 350>
-            , <&key_physical_attrs 100 100 550 387 200000 550 387>
-            , <&key_physical_attrs 100 100 650 387 160000 650 387>
-            , <&key_physical_attrs 100 100 763 350  10000 763 350>
-
+            , <&key_physical_attrs 100 100 437 350 0 0 0>
+            , <&key_physical_attrs 100 100 550 387 0 0 0>
+            , <&key_physical_attrs 100 100 650 387 0 0 0>
+            , <&key_physical_attrs 100 100 763 350 0 0 0>
             , <&key_physical_attrs 100 100 1200 337 0 0 0>
             ;
     };
