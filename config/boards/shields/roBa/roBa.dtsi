@@ -1,4 +1,4 @@
-#include <dt-bindings/zmk/bt.h>
+#include <physical_layouts.dtsi>
 
 / {
     chosen {
@@ -12,21 +12,19 @@
         kscan = <&kscan0>;
 
         keys =
-            /* row0 */
-            <&key_physical_attrs 100 100    0   37 0 0 0>,
-            <&key_physical_attrs 100 100  100   12 0 0 0>,
-            <&key_physical_attrs 100 100  200    0 0 0 0>,
-            <&key_physical_attrs 100 100  300   12 0 0 0>,
-            <&key_physical_attrs 100 100  400   24 0 0 0>,
+            <&key_physical_attrs 100 100   0   37 0 0 0>,
+            <&key_physical_attrs 100 100 100   12 0 0 0>,
+            <&key_physical_attrs 100 100 200    0 0 0 0>,
+            <&key_physical_attrs 100 100 300   12 0 0 0>,
+            <&key_physical_attrs 100 100 400   24 0 0 0>,
 
-            <&key_physical_attrs 100 100  800   24 0 0 0>,
-            <&key_physical_attrs 100 100  900   12 0 0 0>,
-            <&key_physical_attrs 100 100 1000    0 0 0 0>,
-            <&key_physical_attrs 100 100 1100   12 0 0 0>,
-            <&key_physical_attrs 100 100 1200   37 0 0 0>,
+            <&key_physical_attrs 100 100 800   24 0 0 0>,
+            <&key_physical_attrs 100 100 900   12 0 0 0>,
+            <&key_physical_attrs 100 100 1000   0 0 0 0>,
+            <&key_physical_attrs 100 100 1100  12 0 0 0>,
+            <&key_physical_attrs 100 100 1200  37 0 0 0>,
 
-            /* row1 */
-            <&key_physical_attrs 100 100    0 137 0 0 0>,
+            <&key_physical_attrs 100 100   0 137 0 0 0>,
             <&key_physical_attrs 100 100 100 112 0 0 0>,
             <&key_physical_attrs 100 100 200 100 0 0 0>,
             <&key_physical_attrs 100 100 300 112 0 0 0>,
@@ -40,8 +38,7 @@
             <&key_physical_attrs 100 100 1100 112 0 0 0>,
             <&key_physical_attrs 100 100 1200 137 0 0 0>,
 
-            /* row2 */
-            <&key_physical_attrs 100 100    0 237 0 0 0>,
+            <&key_physical_attrs 100 100   0 237 0 0 0>,
             <&key_physical_attrs 100 100 100 212 0 0 0>,
             <&key_physical_attrs 100 100 200 200 0 0 0>,
             <&key_physical_attrs 100 100 300 212 0 0 0>,
@@ -55,13 +52,11 @@
             <&key_physical_attrs 100 100 1100 212 0 0 0>,
             <&key_physical_attrs 100 100 1200 237 0 0 0>,
 
-            /* row3 */
-            <&key_physical_attrs 100 100 0   337 0 0 0>,
+            <&key_physical_attrs 100 100   0 337 0 0 0>,
             <&key_physical_attrs 100 100 100 312 0 0 0>,
             <&key_physical_attrs 100 100 200 300 0 0 0>,
             <&key_physical_attrs 100 100 325 337 0 0 0>,
 
-            /* thumb */
             <&key_physical_attrs 100 100 437 350 0 0 0>,
             <&key_physical_attrs 100 100 550 387 0 0 0>,
             <&key_physical_attrs 100 100 650 387 0 0 0>,
@@ -85,28 +80,13 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         diode-direction = "col2row";
 
         row-gpios =
-            <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-    };
-
-    left_encoder: encoder_left {
-        compatible = "alps,ec11";
-        a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <12>;
-        status = "disabled";
-    };
-
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&left_encoder>;
-        triggers-per-rotation = <10>;
+            <&xiao_d 1 GPIO_ACTIVE_HIGH>,
+            <&xiao_d 2 GPIO_ACTIVE_HIGH>,
+            <&xiao_d 3 GPIO_ACTIVE_HIGH>,
+            <&xiao_d 6 GPIO_ACTIVE_HIGH>;
     };
 };
 
