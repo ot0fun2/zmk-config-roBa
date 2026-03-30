@@ -9,24 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    container:
+      image: ghcr.io/zmkfirmware/zmk-build-arm:3.5
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install west
+      - name: Setup west
         run: pip3 install west
 
-      - name: Initialize west workspace
+      - name: Initialize workspace
         run: |
           west init -l config
           west update
 
-      - name: Set Zephyr environment
-        run: |
-          echo "ZEPHYR_BASE=$GITHUB_WORKSPACE/zephyr" >> $GITHUB_ENV
-
       - name: Build Left
         run: |
+          source zephyr/zephyr-env.sh
           west build -s zmk/app -d build/left \
             -b xiao_ble \
             -- \
@@ -35,16 +35,22 @@ jobs:
 
       - name: Build Right
         run: |
+          source zephyr/zephyr-env.sh
           west build -s zmk/app -d build/right \
             -b xiao_ble \
             -- \
             -DSHIELD=roBa_R \
             -DZMK_CONFIG=$GITHUB_WORKSPACE/config
 
+      - name: Rename firmware
+        run: |
+          cp build/left/zephyr/zmk.uf2 roba_left.uf2
+          cp build/right/zephyr/zmk.uf2 roba_right.uf2
+
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: roba-firmware
+          name: roba_firmware
           path: |
-            build/left/zephyr/zmk.uf2
-            build/right/zephyr/zmk.uf2
+            roba_left.uf2
+            roba_right.uf2
