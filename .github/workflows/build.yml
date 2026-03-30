@@ -43,6 +43,9 @@ jobs:
         run: |
           west init -l config
           west update
+          west list
+          ls
+          ls zephyr          
 
       - name: Build Left
         run: |
