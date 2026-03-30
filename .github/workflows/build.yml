@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install dependencies
@@ -37,18 +37,18 @@ jobs:
             libsdl2-dev
 
       - name: Install west
-        run: pip3 install west
+        run: pip3 install --user west
 
-      - name: Initialize workspace
+      - name: Initialize west workspace
         run: |
+          export PATH=$PATH:$HOME/.local/bin
           west init -l config
           west update
-          west list
-          ls
-          ls zephyr          
+          west zephyr-export
 
-      - name: Build Left
+      - name: Build left firmware
         run: |
+          export PATH=$PATH:$HOME/.local/bin
           source zephyr/zephyr-env.sh
           west build -s zmk/app -d build/left \
             -b xiao_ble \
@@ -56,8 +56,9 @@ jobs:
             -DSHIELD=roBa_L \
             -DZMK_CONFIG=$GITHUB_WORKSPACE/config
 
-      - name: Build Right
+      - name: Build right firmware
         run: |
+          export PATH=$PATH:$HOME/.local/bin
           source zephyr/zephyr-env.sh
           west build -s zmk/app -d build/right \
             -b xiao_ble \
@@ -70,10 +71,10 @@ jobs:
           cp build/left/zephyr/zmk.uf2 roba_left.uf2
           cp build/right/zephyr/zmk.uf2 roba_right.uf2
 
-      - name: Upload firmware
+      - name: Upload firmware artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: roba_firmware
+          name: roba-firmware
           path: |
             roba_left.uf2
             roba_right.uf2
