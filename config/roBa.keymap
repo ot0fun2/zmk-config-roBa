@@ -39,21 +39,6 @@
             bindings = <&kp LS(TAB)>;
             key-positions = <12 13>;
         };
-
-        muhennkann {
-            bindings = <&to_layer_0 INT_MUHENKAN>;
-            key-positions = <11 10>;
-        };
-
-        double_quotation {
-            bindings = <&kp DOUBLE_QUOTES>;
-            key-positions = <20 21>;
-        };
-
-        eq {
-            bindings = <&kp EQUAL>;
-            key-positions = <24 25>;
-        };
     };
 
     macros {
@@ -82,29 +67,29 @@
         default_layer {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                   &kp T                                                 &kp Y        &kp U  &lt 5 I    &kp O    &kp P
-&kp A             &kp S         &kp D         &kp F                   &kp G        &kp LS(LG(S))             &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp SQT
+&kp A             &kp S         &kp D         &kp F                   &kp G        &kp LS(LG(S))             &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp DEL
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                   &kp B        &kp COLON                 &kp SEMICOLON  &kp N        &kp M  &kp COMMA  &kp DOT  &kp SLASH
-&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 6 GRAVE  &lt 2 SPACE  &lt_to_layer_0 3 ESC      &kp BACKSPACE  &lt 1 ENTER                             &kp DEL
+&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 6 GRAVE  &lt 2 SPACE  &lt_to_layer_0 3 ESC      &kp BACKSPACE  &lt 1 ENTER                             &kp INT_MUHENKAN
             >;
 
-            sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
+            sensor-bindings = <&inc_dec_kp HOME END>;
         };
 
         FUNCTION {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &kp F1  &kp F2   &kp F3   &kp F4  &kp F5
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &kp F6  &kp F7   &kp F8   &kp F9  &kp F10
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &kp F11  &kp F12  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                            &trans
+&trans  &trans  &trans  &trans  &trans                      &kp F1                  &kp F2   &kp F3   &kp F4             &kp F5
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &kp F6                  &kp F7   &kp F8   &kp F9             &kp F10
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &kp LC(LG(LEFT_ARROW))  &kp F11  &kp F12  &kp LC(LG(RIGHT))  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                       &trans
             >;
         };
 
         NUM {
             bindings = <
-&kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9       &kp PLUS                                                  &kp PLUS   &kp N7        &kp NUMBER_8  &kp N9        &kp EQUAL
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AMPERSAND      &kp UNDERSCORE  &kp N0     &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp ASTERISK
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp COMMA             &kp PERIOD             &kp EQUAL          &trans          &kp MINUS  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp SLASH
-&trans                      &trans           &trans           &trans                &trans                 &trans             &trans          &trans                                               &kp DOUBLE_QUOTES
+&kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9       &kp PLUS                                              &kp PLUS   &kp N7        &kp NUMBER_8  &kp N9        &kp EQUAL
+&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans         &kp UNDERSCORE  &kp N0     &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp ASTERISK
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp COMMA             &kp PERIOD             &kp EQUAL      &kp AMPERSAND   &kp MINUS  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp SLASH
+&trans                      &trans           &trans           &trans                &trans                 &trans         &trans          &trans                                               &kp DOUBLE_QUOTES
             >;
         };
 
@@ -121,10 +106,10 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                &trans
+&trans  &trans  &trans  &trans  &trans                      &trans  &trans     &trans     &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB1   &mkp MB3   &mkp MB2  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &kp LC(C)  &kp LC(V)  &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                  &trans
             >;
         };
 
